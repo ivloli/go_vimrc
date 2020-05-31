@@ -348,7 +348,8 @@ autocmd FileType go set omnifunc=gocomplete#Complete
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " YouCompleteMe 配置
-let g:ycm_server_python_interpreter='/usr/bin/python2'
+let g:ycm_server_python_interpreter='/usr/bin/python3'
+let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
 " Note that you can install YCM with both libclang and clangd enabled. In that case clangd will be preferred unless you have the following in your vimrc:
 "let g:ycm_use_clangd = 0
 " 寻找全局配置文件
