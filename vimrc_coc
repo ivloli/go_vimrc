@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 
 " let Vundle manage Vundle, required
 Plug 'VundleVim/Vundle.vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 """ Plugins Condig {
 Plug 'vim-scripts/DrawIt'                     " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
 Plug 'vim-scripts/taglist.vim'                " Source code browser
