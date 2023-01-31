@@ -63,6 +63,8 @@ alias ldu='du -d 1 -h'
 alias gs='git status'
 alias gd='git diff'
 alias gitlog='git log --oneline --decorate --graph --pretty="%Cgreen%cd%Creset %Cred%h%Creset %Cblue%cn%Creset %s" --date=short'
+alias sshlt2='sshpass -p ***REMOVED*** ssh hechuan5@lt2.c.sina.com'
+alias sshdx2='sshpass -p ***REMOVED*** ssh hechuan5@dx2.c.sina.com'
 
 
 
