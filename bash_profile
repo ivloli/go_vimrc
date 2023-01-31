@@ -3,7 +3,11 @@ if [ -f ~/.bashrc ]; then
 fi
 export GOPATH="/home/hechuan/gopath"
 export GO111MODULE="auto"
+export GOBIN="/home/hechuan/gopath/bin"
 export PATH="$GOPATH/bin:$PATH"
+export PATH="/home/hechuan/protoc-3.12.3/bin:$PATH"
+export PATH="/usr/local/go/bin:$PATH"
+export PATH="/home/hechuan/.local/bin:$PATH"
 
 #export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 export JAVA_HOME="/usr/lib/jvm/java-12-openjdk-amd64"
