@@ -17,6 +17,20 @@ call plug#begin('~/.vim/plugged')
 Plug 'VundleVim/Vundle.vim'
 "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Treesitter：现代语法解析（解决 redrawtime 超时）
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"
+" " ===== coc 扩展 =====
+Plug 'neoclide/coc-json'
+Plug 'fannheyward/coc-pyright'
+Plug 'josa42/coc-lua'
+Plug 'clangd/coc-clangd'
+"
+" " coc 辅助插件
+Plug 'neoclide/coc-highlight'
+Plug 'honza/vim-snippets'
+Plug 'neoclide/coc-snippets'
 """ Plugins Condig {
 Plug 'vim-scripts/DrawIt'                     " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
 Plug 'vim-scripts/taglist.vim'                " Source code browser
@@ -112,6 +126,18 @@ set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)
 "set foldmethod=manual   " 手动折叠  
 "set background=dark "背景使用黑色 
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+" 提高 redraw 时间上限
+set redrawtime=15000
+
+" 避免每次移动光标触发重新高亮
+set nocursorline
+
+" 避免语法折叠导致极端卡顿
+set foldmethod=manual
+
+" 让 Vim 避免不必要的渲染
+set lazyredraw
+
 " 显示中文帮助
 if version >= 603
 	set helplang=cn
@@ -467,7 +493,7 @@ nmap <leader>f  <Plug>(coc-format)
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd FileType json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end

@@ -3,9 +3,27 @@
     "go": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
-      "trace.server": "verbose",
-      "filetypes": ["go"]
+      "filetypes": ["go"],
+      "settings": {
+        "gopls": {
+          "usePlaceholders": false,
+          "analyses": {
+            "unusedparams": true,
+            "shadow": false
+          },
+          "staticcheck": false
+        }
+      }
     }
   },
-  "coc.preferences.jumpCommand": "tab drop"
+
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.diagnostic.enable": false,
+
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
+  "rust-analyzer.rustfmt.enableRangeFormatting": true,
+
+  "coc.preferences.jumpCommand": "tab drop",
+  "editor.formatOnSave": true
 }
