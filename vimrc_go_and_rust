@@ -1,3 +1,6 @@
+" 修复终端背景色擦除问题（跳转时出现的背景色干扰）
+set t_ut=
+
 map <F9> :call SaveInputData()<CR>
 func! SaveInputData()
 	exec "tabnew"
@@ -13,6 +16,9 @@ call plug#begin('~/.vim/plugged')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+" 设置 coc.nvim 使用的 Node.js 路径（修复 nvm 环境问题）
+let g:coc_node_path = '/Users/hechuan/.nvm/versions/node/v24.13.0/bin/node'
+
 " let Vundle manage Vundle, required
 Plug 'VundleVim/Vundle.vim'
 "Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
@@ -26,6 +32,7 @@ Plug 'neoclide/coc-json'
 Plug 'fannheyward/coc-pyright'
 Plug 'josa42/coc-lua'
 Plug 'clangd/coc-clangd'
+Plug 'yaegassy/coc-volar'
 "
 " " coc 辅助插件
 Plug 'neoclide/coc-highlight'
@@ -46,6 +53,7 @@ Plug 'majutsushi/tagbar'          " Tagbar is a plugin for browsing the tags of 
 Plug 'wincent/command-t'          " Fast file navigation for VIM
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-python/python-syntax'
 "Plug 'dgryski/vim-godef'
 Plug 'uarun/vim-protobuf'
 "call vundle#end()            " required
@@ -64,7 +72,7 @@ let g:ale_enabled = 0
 syntax on
 "colorscheme torte
 "colorscheme murphy
-"colorscheme desert 
+"colorscheme desert
 "colorscheme elflord
 "colorscheme ron
 "call vundle#begin()
@@ -84,7 +92,7 @@ set maxmempattern=1000000
 set bg=dark
 "colorscheme solarized
 "colorscheme watermark
-"colorscheme desert 
+"colorscheme desert
 "colorscheme ekigrass
 colorscheme eva_
 nmap <leader>eva :colorscheme eva_<CR>
@@ -103,29 +111,29 @@ nmap <leader>cbk :colorscheme cyberpunk<CR>
 "自动跳转到上次关闭时的光标位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 显示相关  
+" 显示相关
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示  
-"winpos 5 5          " 设定窗口位置  
-"set lines=40 columns=155    " 设定窗口大小  
-"set go=             " 不要图形按钮  
-"color asmanian2     " 设置背景主题  
-"set guifont=Courier_New:h10:cANSI   " 设置字体  
-"syntax on           " 语法高亮  
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行  
-"set ruler           " 显示标尺  
-set showcmd         " 输入的命令显示出来，看的清楚些  
-"set cmdheight=1     " 命令行（在状态行下）的高度，设置为1  
-"set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)  
-"set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离  
-set novisualbell    " 不要闪烁(不明白)  
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
-set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)  
-"set foldenable      " 允许折叠  
-"set foldmethod=manual   " 手动折叠  
-"set background=dark "背景使用黑色 
-set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+"set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示
+"winpos 5 5          " 设定窗口位置
+"set lines=40 columns=155    " 设定窗口大小
+"set go=             " 不要图形按钮
+"color asmanian2     " 设置背景主题
+"set guifont=Courier_New:h10:cANSI   " 设置字体
+"syntax on           " 语法高亮
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行
+autocmd InsertEnter * se cul    " 用浅色高亮当前行
+"set ruler           " 显示标尺
+set showcmd         " 输入的命令显示出来，看的清楚些
+"set cmdheight=1     " 命令行（在状态行下）的高度，设置为1
+"set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)
+"set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离
+set novisualbell    " 不要闪烁(不明白)
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容
+set laststatus=1    " 启动显示状态行(1),总是显示状态行(2)
+"set foldenable      " 允许折叠
+"set foldmethod=manual   " 手动折叠
+"set background=dark "背景使用黑色
+set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 " 提高 redraw 时间上限
 set redrawtime=15000
 
@@ -145,25 +153,25 @@ if version >= 603
 endif
 " 设置配色方案
 "colorscheme murphy
-"字体 
-"if (has("gui_running")) 
-"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif 
+"字体
+"if (has("gui_running"))
+"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+"endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"新建.c,.h,.sh,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
-""定义函数SetTitle，自动插入文件头 
-func SetTitle() 
-	"如果文件类型为.sh文件 
-	if &filetype == 'sh' 
-		call setline(1, "\#!/bin/bash") 
-	else 
-		call setline(1, "/*************************************************************************") 
-		call append(line("."), "	> File Name: ".expand("%")) 
-		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
-		call append(line(".")+4, " ************************************************************************/") 
+"新建.c,.h,.sh,.java文件，自动插入文件头
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
+""定义函数SetTitle，自动插入文件头
+func SetTitle()
+	"如果文件类型为.sh文件
+	if &filetype == 'sh'
+		call setline(1, "\#!/bin/bash")
+	else
+		call setline(1, "/*************************************************************************")
+		call append(line("."), "	> File Name: ".expand("%"))
+		call append(line(".")+3, "	> Created Time: ".strftime("%c"))
+		call append(line(".")+4, " ************************************************************************/")
 		call append(line(".")+5, "")
 	endif
 	if &filetype == 'cpp'
@@ -181,7 +189,7 @@ func SetTitle()
 	"	endif
 	"新建文件后，自动定位到文件末尾
 	autocmd BufNewFile * normal G
-endfunc 
+endfunc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -198,18 +206,18 @@ map! <C-A> <Esc>ggVGY
 map <F12> gg=G
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
-"去空行  
-"nnoremap <F2> :g/^\s*$/d<CR> 
-"比较文件  
-nnoremap <C-F2> :vert diffsplit 
-"新建标签  
-"map <F2> :tabnew<CR>  
-"列出当前目录文件  
-map <F3> :tabnew .<CR>  
-"打开树状文件目录  
+"去空行
+"nnoremap <F2> :g/^\s*$/d<CR>
+"比较文件
+nnoremap <C-F2> :vert diffsplit
+"新建标签
+"map <F2> :tabnew<CR>
+"列出当前目录文件
+map <F3> :tabnew .<CR>
+"打开树状文件目录
 "map <F11> :set mouse-=a <CR>
 "map <F12> :set mouse=a <CR>
-map <C-F3> \be  
+map <C-F3> \be
 "C，C++ 按F5编译运行
 "map <F5> :call CompileRunGcc()<CR>
 "func! CompileRunGcc()
@@ -220,8 +228,8 @@ map <C-F3> \be
 "	elseif &filetype == 'cpp'
 "		exec "!g++ % -o %<"
 "		exec "! ./%<"
-"	elseif &filetype == 'java' 
-"		exec "!javac %" 
+"	elseif &filetype == 'java'
+"		exec "!javac %"
 "		exec "!java %<"
 "	elseif &filetype == 'sh'
 "		:!./%
@@ -247,13 +255,13 @@ map <C-F3> \be
 set autoread
 " quickfix模式
 autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
-"代码补全 
-set completeopt=preview,menu 
-"允许插件  
+"代码补全
+set completeopt=preview,menu
+"允许插件
 filetype plugin on
-"共享剪贴板  
-set clipboard+=unnamed 
-"从不备份  
+"共享剪贴板
+set clipboard+=unnamed
+"从不备份
 set nobackup
 "make 运行
 :set makeprg=g++\ -Wall\ \ %
@@ -262,17 +270,17 @@ set autowrite
 set ruler                   " 打开状态栏标尺
 set cursorline " 突出显示当前行
 " turn on cursorline
-nmap <silent> zx :set cursorline <CR> 
+nmap <silent> zx :set cursorline <CR>
 " turn off cursorline
-nmap <silent> zc :set nocursorline <CR> 
+nmap <silent> zc :set nocursorline <CR>
 set magic                   " 设置魔术
 set guioptions-=T           " 隐藏工具栏
 set guioptions-=m           " 隐藏菜单栏
 "set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\
 " 设置在状态行显示的信息
 "set foldcolumn=0
-"set foldmethod=indent 
-"set foldlevel=3 
+"set foldmethod=indent
+"set foldlevel=3
 "set foldenable              " 开始折叠
 " 不要使用vi的键盘模式，而是vim自己的
 set nocompatible
@@ -374,7 +382,7 @@ function! ClosePair(char)
 		return a:char
 	endif
 endfunction
-filetype plugin indent on 
+filetype plugin indent on
 "打开文件类型检测, 加了这句才可以用智能补全
 set completeopt=longest,menu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -396,7 +404,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=31
 "nnoremap f :NERDTreeToggle
-map <F7> :NERDTree<CR>  
+map <F7> :NERDTree<CR>
 
 filetype plugin indent on
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
@@ -411,7 +419,9 @@ autocmd FileType json,markdown let g:indentLine_conceallevel=0
 autocmd FileType javascript,xml,css,python,c,cpp,java,vim,shell,go let g:indentLine_conceallevel=2
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-"let g:godef_split=2 
+" Python syntax highlighting
+let g:python_highlight_all = 1
+"let g:godef_split=2
 "let g:godef_same_file_in_same_window=1
 "let g:go_gopls_enabled = 0 "关闭 gopls
 " if hidden is not set, TextEdit might fail.
@@ -462,7 +472,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " rust-analyzer 开启语义高亮
 let g:coc_default_semantic_highlight_groups = 1
-set tags=./tags;,tags;
+set tags=./tags;,tags;,./rusty-tags.vi;,rusty-tags.vi;
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
